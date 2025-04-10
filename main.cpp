@@ -1,26 +1,26 @@
 #include <iostream>
+#include <algorithm>
 #include <list>
 #include <vector>
 
 using namespace std;
 
-// 파라미터를 더하는 함수
-int FuncAdd(int iLeft, int iRight)
-{
-    return iLeft + iRight;
-}
+//int main() {
+//    int x (10), y(3);
+//    auto divide = [](int a, int b) -> double {
+//        return static_cast<double>(a) / b;
+//        };
+//    cout << divide(x, y) << endl;;//3.333
+//}
+
+#include <iostream>
+#include <algorithm>
 
 int main() {
-    // FuncAdd를 람다로 표현하면
-    auto lambdaAdd = [](int iLeft, int iRight) 
-        {
-            return iLeft + iRight;
-        };
+    list<int> v = { 1, 2, 3, 4, 5 };
 
-    std::cout << "FuncAdd(10, 10) = " << FuncAdd(10, 10) << std::endl;
-
-    std::cout << "lambdaAdd(10, 10) = " << lambdaAdd(10, 10) << std::endl;
+    for_each(v.begin(), v.end(), [](int x) {
+        std::cout << x * x << " ";
+        });
+    // 출력: 1 4 9 16 25
 }
-
-
-

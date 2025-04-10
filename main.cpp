@@ -42,7 +42,7 @@ int main() {
 
     if (auto locked = weak.lock()) {
         ++(*locked);
-        std::cout << "weak Value = " << *locked << std::endl;
-        std::cout << "shared Value = " << *shared << std::endl;
+        std::cout << "weak Value = " << *locked << std::endl;  // 101
+        std::cout << "shared Value = " << *shared << std::endl; // 101
     }
 }

@@ -1,26 +1,48 @@
-#include <iostream>
+﻿#include <iostream>
 #include <algorithm>
 #include <list>
-#include <vector>
+#include <memory>
 
 using namespace std;
 
-//int main() {
-//    int x (10), y(3);
-//    auto divide = [](int a, int b) -> double {
-//        return static_cast<double>(a) / b;
-//        };
-//    cout << divide(x, y) << endl;;//3.333
+//int main() {//uniqueptr 예제
+//    unique_ptr<int> ptr = std::make_unique<int>(10);
+//    cout << *ptr << std::endl;
+//
+//    //std::unique_ptr<int> ptr2 = ptr; //  컴파일러에러!! 복사 안됨
+//    std::unique_ptr<int> ptr2 = move(ptr); //이동만 가능
+//    cout << *ptr2 << std::endl;
 //}
 
-#include <iostream>
-#include <algorithm>
+//class A {
+//public:
+//    A(shared_ptr<int> ForUseCnt) { ptr2 = ForUseCnt; cout << *ptr2 << endl; }
+//private:
+//
+//    shared_ptr<int> ptr2;
+//};
+//
+//int main() {//shared_ptr 예제
+//    std::shared_ptr<int> ptr1 = std::make_shared<int>(100);
+//    A* ptrA = new A(ptr1);
+//
+//    std::cout << *ptr1 << ", count = " << ptr1.use_count() << std::endl;//useCnt 2
+//
+//    delete ptrA;
+//    std::cout << *ptr1 << ", count = " << ptr1.use_count() << std::endl;//useCnt 1
+//
+//}
+
 
 int main() {
-    list<int> v = { 1, 2, 3, 4, 5 };
+    std::shared_ptr<int> shared = std::make_shared<int>(100);
+    std::weak_ptr<int> weak = shared;
 
-    for_each(v.begin(), v.end(), [](int x) {
-        std::cout << x * x << " ";
-        });
-    // ���: 1 4 9 16 25
+    std::cout << "use_count = " << shared.use_count() << std::endl;//use cnt 1 카운터가 늘지 않는다.
+
+    if (auto locked = weak.lock()) {
+        ++(*locked);
+        std::cout << "weak Value = " << *locked << std::endl;
+        std::cout << "shared Value = " << *shared << std::endl;
+    }
 }
